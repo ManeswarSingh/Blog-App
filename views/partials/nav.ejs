@@ -1,0 +1,67 @@
+<style>
+  /* *{
+    font-weight: bold;
+  } */
+  .navbar-brand{
+    color: rgb(22, 49, 108);
+    font-weight: bold;
+  }
+  .btn{
+    color: rgb(47, 107, 238);
+    background-color: rgb(255, 255, 255);
+            /* color: white; */
+            border: 1px solid blue;
+  }
+  .btn:hover{
+    background-color: rgb(47, 107, 238) ;
+    color: white;
+  }
+  
+  /* .btn-outline-success{
+    color: rgb(47, 107, 238);
+  } */
+</style>
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top bg-dark border-bottom border-body data-bs-theme="light">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="/">Blog app</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <% if (locals.user) { %>
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/blog/add-new">Add Blog</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%= user.email %></a>
+                      <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="/user/logout">Log Out</a></li>
+                      </ul>
+                  </li>
+              <% } else { %>
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/user/signup">Create Account</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="/user/signin">Sign In</a>
+                  </li>
+              <% } %>
+          </ul>
+          <form class="d-flex" role="search" action="/blog/search" method="get">
+              <input class="form-control me-2" type="search" name="query" placeholder="Search title" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+      </div>
+  </div>
+</nav>
+<% if(locals.error){ %>
+  <div class="container mt-4">
+      <div class="alert alert-danger" role="alert"><%= locals.error %></div>
+  </div>
+<% } %>

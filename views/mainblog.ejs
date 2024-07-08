@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Home Page</title>
+    <style>
+        body {
+            margin-top: 60px;
+            font-family: Arial, sans-serif;
+        }
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .blog-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .blog-content {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        .author-info {
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .author-info img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .author-info span {
+            font-size: 1.2rem;
+        }
+        .comments-section {
+            margin-top: 50px;
+        }
+        .comment {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .comment img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .comment-content {
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <div class="container">
+        <h1 class="blog-title"><%= blog.title %></h1>
+        <img src="<%= blog.coverImage %>" class="blog-image" alt="Blog cover image">
+        <div class="blog-content"><%= blog.body %></div>
+    </div>
+    <div class="container author-info mt-4">
+        <img src="<%= blog.createdBy.userProfile %>" width="50px" alt="Author profile picture">
+        <span>By - <%= blog.createdBy.fullName %></span>
+    </div>
+    <div class="container comments-section mt-3">
+        <h1>Comments (<%= comments.length %>)</h1>
+        <% if (locals.user) { %>
+            <form action="/blog/comment/<%= blog._id %>" method="post" class="mb-4">
+                <div class="mb-3">
+                    <input type="text" name="content" class="form-control" placeholder="Write your comment">
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        <% } %>
+        <div class="comments-list">
+            <% comments.forEach(comment => { %>
+                <% if (comment.createdBy) { %>
+                    <div class="comment">
+                        <img src="<%= comment.createdBy.userProfile %>" width="50px" alt="Commenter profile picture">
+                        <div>
+                            <strong><%= comment.createdBy.fullName %>:</strong>
+                            <div class="comment-content"><%= comment.content %></div>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <p>Unknown user</p>
+                <% } %>
+            <% }) %>
+        </div>
+    </div>
+    <%- include('./partials/scripts') %> 
+</body>
+</html>

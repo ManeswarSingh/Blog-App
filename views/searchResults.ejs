@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head') %>
+    <title>Document</title>
+    <style>
+        .container{
+            margin-top: 80px;
+        }
+        .card {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+            justify-content: space-between;
+        }
+        .card-img-top {
+            height: 200px; /* Adjust this height as needed */
+            object-fit: cover;
+        }
+        .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-title {
+            margin-bottom: 1rem;
+        }
+        .btn-primary {
+            align-self: flex-end;
+        }
+
+    </style>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <div class="container mt-10 card-container">
+        <h2>Search Results for "<%= query %>"</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            <% blogs.forEach(blog => { %>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="<%= blog.coverImage %>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= blog.title %></h5>
+                            <a href="/blog/<%= blog.id %>" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+            <% if (blogs.length === 0) { %>
+                <p>No results found.</p>
+            <% } %>
+            <%- include('./partials/scripts') %>   
+        </div>
+    </div>
+        
+</body>
+</html>
