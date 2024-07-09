@@ -5,11 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <%- include('./partials/head') %>
+  <style>
+.container{
+margin-top: 80px;
+}
+</style>
 </head>
 <body>
   
   <%- include('./partials/nav') %>
-  <div class="container">
+  <div class="container mt-10">
 
     <form action="/blog" method="post" enctype="multipart/form-data">
       <div class="mb-3">
